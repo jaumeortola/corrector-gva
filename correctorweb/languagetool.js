@@ -28,14 +28,6 @@ var SC_COOKIE = 'sc-languagetool';
       $('#opcions_valencia').hide();
     });
 
-    var clip = new ZeroClipboard($("#copyclip"), {
-      moviePath: "js/ZeroClipboard.swf"
-    });
-
-    clip.on('mouseover', function(client, args) {
-      clip.setText($.trim(tinymce.editors[0].core.getPlainText()));
-    });
-
     read_cookie_status();
   });
 
