@@ -3,141 +3,39 @@
 <meta charset="UTF-8">
 <title>Corrector gramatical</title>
 <head>
-
-<script type='text/javascript' src='js/jquery.js'></script>
-<script type='text/javascript' src='js/jquery.fancybox-2.1.5.pack.js'></script>
-<script src="online-check/tiny_mce/tiny_mce.js"></script> 
-<script src="online-check/tiny_mce/plugins/atd-tinymce/editor_plugin.js"></script>
-<script src="js/jquery.metacookie.js"></script>
-<script src="languagetool.js"></script>
-<link href="languagetool.css" rel="stylesheet" type="text/css">
-
+    <link href="online-check/tiny_mce/plugins/atd-tinymce/css/content.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.7.0.min.js"></script>
+    <script type="text/javascript" src="online-check/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript" src="online-check/tiny_mce/plugins/atd-tinymce/editor_plugin2.js"></script>
+    <script type="text/javascript" src="js/languagetool.js"></script>
+    <!--<script type='text/javascript' src='js/jquery.fancybox-2.1.5.pack.js'></script>
+    <script type="text/javascript" src="js/jquery.metacookie.js"></script>-->
+ 
 </head>
+
 <body>
 
-
-<style type="text/css">
-.textcorrectorgram {
-  margin-top:15px;
-}
-.textcorrectorgram p, .textcorrectorgram form {
-    font: 13pt/20pt Verdana;
-    margin: 3px 0px 13px 0px;
-}
-.textpetit {
-   font-size: 10px;
-}
-.textexplicacions p {
-    font: 12pt/19pt Verdana;
-    margin: 3px 0px 13px 0px;
-}
-td {vertical-align:top;}
-td img {vertical-align: top;}
-.ngrid690 {
-    width: 65% !important;
-}
-
-.ngrid260 {
-    width: 30% !important;
-}
-
-.boxtit {
-    width: 290px !important;
-}
-
-</style>
-<script language="javascript" type="text/javascript">
-function insertDemoText()
-{
-     var myDemoText="Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans.";
-   tinyMCE.activeEditor.setContent(myDemoText);   
-}
-</script>
+    <form name="checkform" action="http://community.languagetool.org" method="post">    
+      <p id="checktextpara">
+          <textarea id="checktext" name="text" style="width: 100%" rows="20"></textarea>
+      </p>
+      <div>
+          <input type="hidden" name="lang" value="ca-ES-valencia"/>     
+          <input type="submit" name="_action_checkText"
+              value="Revisa" onClick="doit();return false;">
+          <div id="feedbackErrorMessage" style="color: red;"></div>
+          <br/><a class="textpetit" href="javascript:void(0)" onclick="javascript:insertDemoText();">Insereix un text de prova</a>
+      </div>
+    </form>
 
 
-<div class="textcorrectorgram ngrid690">
-
-<div style="margin:5px 0px 5px 0px;">
-
-<p>Escriviu o enganxeu un text en el formulari i cliqueu en «Revisa».</p>
-
-<noscript>Atenció: No teniu activat el Javascript! Activeu-lo si voleu gaudir de totes les funcions del corrector. Si no ho feu, obtindreu els resultats en una pàgina externa a Softcatalà, i aquests resultats poden ser lleugerament diferents.</noscript>
-
-</div>
-
-<!-- comença el formulari -->
-<div class="textcorrectorgram">
-<form name="checkform" action="" method="post">
-<div style="margin: 10px 0px 10px 10px; display:block; float: left;">
-				<!--Formes: 
-				<input type="radio" name="formes" value="formes_generals" checked id="check_formes_generals">generals
-				<input type="radio" name="formes" value="formes_valencianes" id="check_formes_valencianes">valencianes
-				<input type="radio" name="formes" value="formes_balears" id="check_formes_balears">balears-->
-                <input type="radio" name="formes" value="formes_valencianes" checked id="check_formes_valencianes" style="display:none"/>
-			</div>
-		<p id="checktextpara">
-			<textarea spellcheck="false" id="checktext" class="lt" name="text" style="width: 100%" rows="6"></textarea>
-		</p>
-		<textarea id="copytextarea" name="copytextarea" style="width: 100%;display:none" rows="6" readonly="readonly"></textarea>
-
-		<div style="margin-top:2px;position:relative;">
-			<input type="hidden" name="lang" value="ca"/>
-                        <div style="margin-top:0px; display:block; float: right; text-align:right;">
-
-				<input type="submit" id="submit" name="_action_checkText" value="Revisa">
-<br/><a class="textpetit" href="javascript:void(0)" onclick="javascript:insertDemoText();">Insereix un text de prova</a>
-                        </div> 
-
-                                
-			<div style="margin: 3px 0px 10px 10px; display:block; float: left;">
-				<input type="checkbox" id="mesopcions" value="mesopcions">Més opcions 
-				<div id="mes_opcions" style="margin: 10px 0px 10px 0px; display:none; background-color:#F0F0EE;">
-					<!--<input type="checkbox" name="SE_DAVANT_SC" value="SE_DAVANT_SC" checked>Exigeix 'se' (se sap, se celebra)<br/>
-					<input type="checkbox" name="CA_UNPAIRED_QUESTION" value="CA_UNPAIRED_QUESTION">Exigeix signe d'interrogació inicial (¿)<br/>-->
-
-					<div id="opcions_valencia" style="margin-top:0px; display:block; background-color:#F0F0EE; float: left;display:none;" >   	
-						<table summary="" border="0">
-							<tr>
-								<td>Accentuació:</td>
-								<td><input type="radio" name="accentuacio" value="accentuacio_general">general (cafè)</td>
-								<td><input type="radio" name="accentuacio" value="accentuacio_valenciana" checked>valenciana (café)</td>
-							</tr>
-							<tr>
-								<td>Verbs incoatius:</td>
-								<td><input type="radio" name="incoatius" value="incoatius_eix" checked>-eix (serveix)</td>
-								<td><input type="radio" name="incoatius" value="incoatius_ix">-ix (servix)</td>
-							</tr>
-							<tr>
-							<td></td>
-								<td><input type="radio" name="incoatius2" value="incoatius_esc">-esc (servesc)</td>
-								<td><input type="radio" name="incoatius2" value="incoatius_isc" checked>-isc (servisc)</td>
-							</tr>
-							<tr>
-								<td>Demostratius:</td>
-								<td><input type="radio" name="demostratius" value="demostratius_aquest" checked>aquest</td>
-								<td><input type="radio" name="demostratius" value="demostratius_este">este</td>
-						</tr>
-						</table>  
-					</div>
-				</div>
-			</div>
-			<div style="clear:both"> </div>
-		</div>
-
-	</form>
-</div>
-<!-- acaba el formulari-->
-<br/>
-
-
-<div class="textexplicacions">
-<p><strong>Resultats</strong>. Apareixeran subratllats <span class="hiddenSpellError">errors ortogràfics</span>, 
-<span class="hiddenGrammarError">errors gramaticals o tipogràfics</span> i <span class="hiddenGreenError">recomanacions d'estil</span>. 
-Fent clic en les paraules assenyalades, obtindreu suggeriments de correcció, si n'hi ha. 
-Els resultats són orientatius i no poden substituir una revisió experta.</p>
-</div>
-
-</div>
+    <div>
+        <strong>Resultats:</strong> Els subratllats de color indiquen <span class="hiddenSpellError">
+        errors ortogràfics</span>, <span class="hiddenGrammarError">errors gramaticals o tipogràfics</span>
+         i <span class="hiddenSuggestion">recomanacions d'estil</span>. Fent clic en les paraules 
+         assenyalades, obtindreu suggeriments de correcció, si n'hi ha. Els resultats són orientatius i no 
+         poden substituir una revisió experta.
+    </div>
+ 
 
 </body>
-</html>
