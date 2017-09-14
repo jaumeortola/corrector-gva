@@ -457,7 +457,7 @@ AtDCore.prototype.isIE = function() {
          ed.core = core;
 
          /* add a command to request a document check and process the results. */
-         editor.addCommand('mceWritingImprovementTool', function(languageCode, enabledRules, disabledRules)
+         editor.addCommand('mceWritingImprovementTool', function(languageCode, userOptions)
          {
              
             if (plugin.menuVisible) {
@@ -477,7 +477,7 @@ AtDCore.prototype.isIE = function() {
 
             /* send request to our service */
             var textContent = plugin.editor.core.getPlainText();
-            plugin.sendRequest('', textContent, languageCode, enabledRules, disabledRules, function(data, request, jqXHR)
+            plugin.sendRequest('', textContent, languageCode, userOptions, function(data, request, jqXHR)
             {
                /* turn off the spinning thingie */
                plugin.editor.setProgressState(0);
@@ -958,7 +958,7 @@ AtDCore.prototype.isIE = function() {
          plugin.editor.nodeChanged();
       },
 
-      sendRequest : function(file, data, languageCode, enabledRules, disabledRules, success)
+      sendRequest : function(file, data, languageCode, userOptions, success)
       {
          var url = this.editor.getParam("languagetool_rpc_url", "{backend}");
          var plugin = this;
@@ -980,9 +980,8 @@ AtDCore.prototype.isIE = function() {
 
          var t = this;
          // There's a bug somewhere in AtDCore.prototype.markMyWords which makes
-         // multiple spaces vanish - thus disable that rule to avoid confusion:
-         var postData = "disabledRules=WHITESPACE_RULE," + disabledRules + "&" +
-             "enabledRules=" + enabledRules + "&" +
+         // multiple spaces vanish - thus disable that rule to avoid confusion: WHITESPACE_RULE,
+         var postData = userOptions + "&" +
              "allowIncompleteResults=true&" + 
              "text=" + encodeURI(data).replace(/&/g, '%26').replace(/\+/g, '%2B') + langParam;
 

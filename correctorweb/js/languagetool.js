@@ -93,18 +93,59 @@ tinyMCE.init({
         var normalizedText = userText.normalize("NFC");
         tinyMCE.activeEditor.setContent(normalizedText);
       }
-
-      var disabledRules="";
+      //select rules 
+      var disabledRules="WHITESPACE_RULE,";
       var enabledRules="";
+      <!-- incoatius -eix/-ix -->
+      if ($("input[name=incoatius]:checked").val()=="incoatius_eix") {
+        enabledRules = enabledRules + ",EXIGEIX_VERBS_EIX";
+        disabledRules = disabledRules + ",EXIGEIX_VERBS_IX";
+      } else {
+        enabledRules = enabledRules + ",EXIGEIX_VERBS_IX";
+        disabledRules = disabledRules + ",EXIGEIX_VERBS_EIX";
+      };
+      <!-- incoatius -isc/-esc -->
+      if ($("input[name=incoatius2]:checked").val()=="incoatius_isc") {
+        enabledRules = enabledRules + ",EXIGEIX_VERBS_ISC";
+        disabledRules = disabledRules + ",EXIGEIX_VERBS_ESC";
+      } else {
+        enabledRules = enabledRules + ",EXIGEIX_VERBS_ESC";
+        disabledRules = disabledRules + ",EXIGEIX_VERBS_ISC";
+      };
+      <!-- demostratius aquest/este -->
+      if ($("input[name=demostratius]:checked").val()=="demostratius_aquest") {
+        enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
+        disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
+      } else {
+        enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
+        disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
+      };
+      <!-- accentuació café /cafè -->
+      if ($("input[name=accentuacio]:checked").val()=="accentuacio_valenciana") {
+        enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
+        disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
+      } else {
+        enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
+        disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
+      };
+      <!-- municipis nom valencià/oficial -->
+      if ($("input[name=municipis]:checked").val()=="municipi_nom_valencia") {
+        enabledRules = enabledRules + ",MUNICIPIS_VALENCIA";
+        disabledRules = disabledRules + ",MUNICIPIS_OFICIAL";
+      } else {
+        enabledRules = enabledRules + ",MUNICIPIS_OFICIAL";
+        disabledRules = disabledRules + ",MUNICIPIS_VALENCIA";
+      };
 
-      tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode,  enabledRules, disabledRules);
+      var userOptions = "disabledRules=" + disabledRules + "&enabledRules=" + enabledRules;
+      tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode,  userOptions);
       }
   }
 
 
 function insertDemoText()
 {
-   var myDemoText="Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans.";
+   var myDemoText="Exigeix, exigix, exigesc, exigisc, aquest, este, café, cafè. Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans.";
    tinyMCE.activeEditor.setContent(myDemoText);   
 }
 
