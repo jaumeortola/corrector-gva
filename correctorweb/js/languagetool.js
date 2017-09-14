@@ -81,14 +81,17 @@ tinyMCE.init({
  
   function doit() {
     var langCode = "ca-ES-valencia"; //document.checkform.lang.value;
-      
+    var userText = tinyMCE.activeEditor.getContent();
     //normalize text
     if (String.prototype.hasOwnProperty('normalize')) {
       var normalizedText = userText.normalize("NFC");
       tinyMCE.activeEditor.setContent(normalizedText);
     }
 
-    tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode);
+    var disabledRules="";
+    var enabledRules="";
+
+    tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode,  enabledRules, disabledRules);
   }
 
 

@@ -368,7 +368,7 @@ AtDCore.prototype.isIE = function() {
 (function() 
 {
    var JSONRequest = tinymce.util.JSONRequest, each = tinymce.each, DOM = tinymce.DOM;
-   var maxTextLength = 20000;
+   var maxTextLength = 30000;
 
    tinymce.create('tinymce.plugins.AfterTheDeadlinePlugin', 
    {
@@ -457,7 +457,7 @@ AtDCore.prototype.isIE = function() {
          ed.core = core;
 
          /* add a command to request a document check and process the results. */
-         editor.addCommand('mceWritingImprovementTool', function(languageCode, catOptions)
+         editor.addCommand('mceWritingImprovementTool', function(languageCode, enabledRules, disabledRules)
          {
              
             if (plugin.menuVisible) {
@@ -477,7 +477,7 @@ AtDCore.prototype.isIE = function() {
 
             /* send request to our service */
             var textContent = plugin.editor.core.getPlainText();
-            plugin.sendRequest('', textContent, languageCode, function(data, request, jqXHR)
+            plugin.sendRequest('', textContent, languageCode, enabledRules, disabledRules, function(data, request, jqXHR)
             {
                /* turn off the spinning thingie */
                plugin.editor.setProgressState(0);
@@ -958,7 +958,7 @@ AtDCore.prototype.isIE = function() {
          plugin.editor.nodeChanged();
       },
 
-      sendRequest : function(file, data, languageCode, success)
+      sendRequest : function(file, data, languageCode, enabledRules, disabledRules, success)
       {
          var url = this.editor.getParam("languagetool_rpc_url", "{backend}");
          var plugin = this;
@@ -981,11 +981,10 @@ AtDCore.prototype.isIE = function() {
          var t = this;
          // There's a bug somewhere in AtDCore.prototype.markMyWords which makes
          // multiple spaces vanish - thus disable that rule to avoid confusion:
-         var postData = "disabledRules=WHITESPACE_RULE&" +
+         var postData = "disabledRules=WHITESPACE_RULE," + disabledRules + "&" +
+             "enabledRules=" + enabledRules + "&" +
              "allowIncompleteResults=true&" + 
              "text=" + encodeURI(data).replace(/&/g, '%26').replace(/\+/g, '%2B') + langParam;
-
-
 
          jQuery.ajax({
             url:   url,
@@ -1006,12 +1005,12 @@ AtDCore.prototype.isIE = function() {
                             document.checkform._action_checkText.disabled = false;
                             var errorText = jqXHR.responseText;
                             if (!errorText) {
-                                errorText = "Error: Did not get response from service. Please try again in one minute.";
+                                errorText = "Error: no hi ha resposta del servei. Torneu a provar d'ací a una estona.";
                             }
                             if (data.length > maxTextLength) {
                                 // Somehow, the error code 413 is lost in Apache, so we show that error here.
                                 // This unfortunately means that the limit needs to be configured in the server *and* here.
-                                errorText = "Error: your text is too long (" + data.length + " characters). This server accepts up to " + maxTextLength + " characters.";
+                                errorText = "Error: el vostre text és massa llarg (" + data.length + " caràcters). Màxim: " + maxTextLength + " caràcters.";
                             }
                             $('#feedbackErrorMessage').html("<div id='severeError'>" + errorText + "</div>");
                             t._trackEvent('CheckError', 'ErrorWithException', errorText);
