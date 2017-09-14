@@ -16,20 +16,50 @@
 <body>
 
     <form name="checkform" action="http://community.languagetool.org" method="post">    
-      <p id="checktextpara">
-          <textarea id="checktext" name="text" style="width: 100%" rows="20"></textarea>
-      </p>
-      <div>
-          <input type="hidden" name="lang" value="ca-ES-valencia"/>     
-          <input type="submit" name="_action_checkText"
-              value="Revisa" onClick="doit();return false;">
-          <div id="feedbackErrorMessage" style="color: red;"></div>
-          <br/><a class="textpetit" href="javascript:void(0)" onclick="javascript:insertDemoText();">Insereix un text de prova</a>
-      </div>
+        <p id="checktextpara">
+            <textarea id="checktext" name="text" style="width: 100%" rows="20"></textarea>
+        </p>
+        <div>
+            <input type="hidden" name="lang" value="ca-ES-valencia"/>     
+            <input type="submit" name="_action_checkText" value="Revisa" onClick="doit();return false;">
+              <div id="feedbackErrorMessage" style="color: red;"></div>
+              <br/><a class="textpetit" href="javascript:void(0)" onclick="javascript:insertDemoText();">Insereix un text de prova</a>
+        </div>
+        <!--Opcions-->
+        <div id="opcions_valencia"  >     
+            <table summary="opcions de correcció">
+                <tr>
+                    <td>Verbs incoatius:</td>
+                    <td><input type="radio" name="incoatius" value="incoatius_eix" checked>-eix (serveix)</td>
+                    <td><input type="radio" name="incoatius" value="incoatius_ix">-ix (servix)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="radio" name="incoatius2" value="incoatius_isc" checked>-isc (servisc)
+                    <td><input type="radio" name="incoatius2" value="incoatius_esc">-esc (servesc)</td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Demostratius:</td>
+                    <td><input type="radio" name="demostratius" value="demostratius_aquest" checked>aquest</td>
+                    <td><input type="radio" name="demostratius" value="demostratius_este">este</td>
+                </tr>
+                <tr>
+                    <td>Accentuació:</td>
+                    <td><input type="radio" name="accentuacio" value="accentuacio_valenciana" checked>café</td>
+                    <td><input type="radio" name="accentuacio" value="accentuacio_general">cafè</td>  
+                </tr>
+                <tr>
+                    <td>Municipis valencians:</td>
+                    <td><input type="radio" name="municipis" value="municipi_nom_valencia" checked>nom valencià</td>
+                    <td><input type="radio" name="municipis" value="municipi_nom_oficial">nom oficial</td>  
+                </tr>
+            </table>  
+        </div> <!--Final: opcions -->
+
     </form>
 
-
-    <div>
+    <div> <!--Instruccions-->
         <strong>Resultats:</strong> Els subratllats de color indiquen <span class="hiddenSpellError">
         errors ortogràfics</span>, <span class="hiddenGrammarError">errors gramaticals o tipogràfics</span>
          i <span class="hiddenSuggestion">recomanacions d'estil</span>. Fent clic en les paraules 
