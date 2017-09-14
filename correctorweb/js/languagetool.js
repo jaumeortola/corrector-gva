@@ -85,7 +85,6 @@ tinyMCE.init({
     var maxTextLength = 30000;
     if (userText.length > maxTextLength) {
       var errorText = "Error: el text és massa llarg (" + userText.length + " caràcters). Màxim: " + maxTextLength + " caràcters.";
-      //alert(errorText);
       $('#feedbackErrorMessage').html("<div id='severeError'>" + errorText + "</div>");
     }
     else {
