@@ -1005,12 +1005,12 @@ AtDCore.prototype.isIE = function() {
                             document.checkform._action_checkText.disabled = false;
                             var errorText = jqXHR.responseText;
                             if (!errorText) {
-                                errorText = "Error: no hi ha resposta del servei. Torneu a provar d'ací a una estona.";
+                                errorText = "Error: el servei no respon. Torneu a provar-ho d'ací a una estona.";
                             }
                             if (data.length > maxTextLength) {
                                 // Somehow, the error code 413 is lost in Apache, so we show that error here.
                                 // This unfortunately means that the limit needs to be configured in the server *and* here.
-                                errorText = "Error: el vostre text és massa llarg (" + data.length + " caràcters). Màxim: " + maxTextLength + " caràcters.";
+                                errorText = "Error: el text és massa llarg (" + data.length + " caràcters). Màxim: " + maxTextLength + " caràcters.";
                             }
                             $('#feedbackErrorMessage').html("<div id='severeError'>" + errorText + "</div>");
                             t._trackEvent('CheckError', 'ErrorWithException', errorText);

@@ -82,16 +82,24 @@ tinyMCE.init({
   function doit() {
     var langCode = "ca-ES-valencia"; //document.checkform.lang.value;
     var userText = tinyMCE.activeEditor.getContent();
-    //normalize text
-    if (String.prototype.hasOwnProperty('normalize')) {
-      var normalizedText = userText.normalize("NFC");
-      tinyMCE.activeEditor.setContent(normalizedText);
+    var maxTextLength = 30000;
+    if (userText.length > maxTextLength) {
+      var errorText = "Error: el text és massa llarg (" + userText.length + " caràcters). Màxim: " + maxTextLength + " caràcters.";
+      //alert(errorText);
+      $('#feedbackErrorMessage').html("<div id='severeError'>" + errorText + "</div>");
     }
+    else {
+      //normalize text
+      if (String.prototype.hasOwnProperty('normalize')) {
+        var normalizedText = userText.normalize("NFC");
+        tinyMCE.activeEditor.setContent(normalizedText);
+      }
 
-    var disabledRules="";
-    var enabledRules="";
+      var disabledRules="";
+      var enabledRules="";
 
-    tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode,  enabledRules, disabledRules);
+      tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode,  enabledRules, disabledRules);
+      }
   }
 
 
