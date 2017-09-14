@@ -83,11 +83,15 @@ AtDCore.prototype.processJSON = function(responseJSON) {
         suggestion["its20type"]   = match.rule.issueType;
         var urls = match.rule.urls;
         if (urls && urls.length > 0) {
-            if (urls[0].value) {
-                suggestion["moreinfo"] = urls[0].value;
-            } else {
-                suggestion["moreinfo"] = urls[0];  //TODO: remove this case, it's for an old API version
-            }
+          var k = 0;
+          var done = false;
+          while (!done && k<urls.length) {
+            if (urls[k].value.indexOf(".gva.es") !== -1) {  //show only info from gva.es websites
+              suggestion["moreinfo"] = urls[k].value;
+              done = true;
+            };
+            k++;
+          }
         }
         this.suggestions.push(suggestion);
     }
