@@ -1,3 +1,9 @@
+(function($) {
+  $(document).ready(function() {
+    readCookieStatus();    
+  });
+}(jQuery));
+
 tinyMCE.init({
      mode : "textareas",
      plugins : "AtD,paste",
@@ -10,31 +16,26 @@ tinyMCE.init({
      /* translations: */
      languagetool_i18n_no_errors : {
          // "No errors were found.":
-         "de-DE": "Keine Fehler gefunden.",
          "ca": "No s\'ha trobat cap error",
          'ca-ES-valencia': 'No s\'ha trobat cap error'
      },
      languagetool_i18n_explain : {
          // "Explain..." - shown if there is an URL with a detailed description:
-         "de-DE": "Mehr Informationen...",
          'ca': 'Més informació…',
          'ca-ES-valencia': 'Més informació…'
      },
      languagetool_i18n_ignore_once : {
          // "Ignore this error":
-         "de-DE": "Hier ignorieren",
          'ca': 'Crec que no és un error',
          'ca-ES-valencia': 'Crec que no és un error'
      },
      languagetool_i18n_ignore_all : {
          // "Ignore this kind of error":
-         "de-DE": "Fehler dieses Typs ignorieren",
          'ca': 'Ignora aquesta classe d\'errors',
          'ca-ES-valencia': 'Ignora aquesta classe d\'errors'
      },
      languagetool_i18n_rule_implementation : {
          // "Rule implementation":
-         "de-DE": "Implementierung der Regel",
          'ca': 'Informació sobre la regla...',
          'ca-ES-valencia': 'Informació sobre la regla...',
      },
@@ -80,6 +81,7 @@ tinyMCE.init({
   });
  
   function doit() {
+    saveCookieStatus();
     var langCode = "ca-ES-valencia"; //document.checkform.lang.value;
     var userText = tinyMCE.activeEditor.getContent();
     var maxTextLength = 30000;
@@ -147,5 +149,51 @@ function insertDemoText()
 {
    var myDemoText="Exigeix, exigix, exigesc, exigisc, aquest, este, café, cafè. Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans.";
    tinyMCE.activeEditor.setContent(myDemoText);   
+}
+
+// COOKIE
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function saveCookieStatus() {
+  var regles_amb_radio = Array('incoatius', 'incoatius2', 'demostratius', 
+    'accentuacio', 'municipis');
+  $.each(regles_amb_radio, function(index, nom) {
+    var valor = $('[type="radio"][name="' + nom + '"]:checked').val();
+    setCookie(nom, valor, 365);
+  });
+
+}
+
+function readCookieStatus() {
+  var regles_amb_radio = Array('incoatius', 'incoatius2', 'demostratius', 
+    'accentuacio', 'municipis');
+  $.each(regles_amb_radio, function(index, nom) {
+    var valor = getCookie(nom);
+    if (valor !== undefined) {
+      $('[type="radio"][name="' + nom + '"][value="' + valor + '"]')
+        .attr('checked', 'checked');
+    }
+  });  
 }
 
