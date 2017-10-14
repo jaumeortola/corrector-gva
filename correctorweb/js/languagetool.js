@@ -96,7 +96,7 @@ function doit() {
     //select rules 
     var disabledRules = "WHITESPACE_RULE,";
     var enabledRules = "";
-    <!-- incoatius -eix/-ix -->
+    /* incoatius -eix/-ix */
     if ($("input[name=incoatius]:checked").val() == "incoatius_eix") {
       enabledRules = enabledRules + ",EXIGEIX_VERBS_EIX";
       disabledRules = disabledRules + ",EXIGEIX_VERBS_IX";
@@ -104,15 +104,15 @@ function doit() {
       enabledRules = enabledRules + ",EXIGEIX_VERBS_IX";
       disabledRules = disabledRules + ",EXIGEIX_VERBS_EIX";
     };
-    <!-- incoatius -isc/-esc -->
+    /* incoatius -isc/-esc 
     if ($("input[name=incoatius2]:checked").val() == "incoatius_isc") {
       enabledRules = enabledRules + ",EXIGEIX_VERBS_ISC";
       disabledRules = disabledRules + ",EXIGEIX_VERBS_ESC";
     } else {
       enabledRules = enabledRules + ",EXIGEIX_VERBS_ESC";
       disabledRules = disabledRules + ",EXIGEIX_VERBS_ISC";
-    };
-    <!-- demostratius aquest/este -->
+    }; */
+    /* demostratius aquest/este */
     if ($("input[name=demostratius]:checked").val() == "demostratius_aquest") {
       enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
       disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
@@ -120,7 +120,7 @@ function doit() {
       enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
       disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
     };
-    <!-- accentuació café /cafè -->
+    /* accentuació café /cafè */
     if ($("input[name=accentuacio]:checked").val() == "accentuacio_valenciana") {
       enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
       disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
@@ -128,7 +128,7 @@ function doit() {
       enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
       disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
     };
-    <!-- municipis nom valencià/oficial -->
+    /* municipis nom valencià/oficial */
     if ($("input[name=municipis]:checked").val() == "municipi_nom_valencia") {
       enabledRules = enabledRules + ",MUNICIPIS_VALENCIA";
       disabledRules = disabledRules + ",MUNICIPIS_OFICIAL";
