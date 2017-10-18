@@ -25,10 +25,13 @@
     cursor: default;
 }
 
-/*body.mceContentBody { 
-    background: #f7f7f7;
+body.mceContentBody { 
+  background: #fff;
+  font-size: 14px;
+  font-family: Arial,Helvetica,Verdana,sans-serif;
+  color: #565353;
 }
 
-body, td, pre {
+/* body, td, pre {
     font-size: 12px;
 }*/
