@@ -98,8 +98,8 @@ function doit() {
     var enabledRules = "";
     /* incoatius -eix/-ix */
     if ($("input[name=incoatius]:checked").val() == "incoatius_eix") {
-      enabledRules = enabledRules + ",EXIGEIX_VERBS_EIX";
-      disabledRules = disabledRules + ",EXIGEIX_VERBS_IX";
+      //enabledRules = enabledRules + ",EXIGEIX_VERBS_EIX";
+      //disabledRules = disabledRules + ",EXIGEIX_VERBS_IX";
     } else {
       enabledRules = enabledRules + ",EXIGEIX_VERBS_IX";
       disabledRules = disabledRules + ",EXIGEIX_VERBS_EIX";
@@ -114,24 +114,32 @@ function doit() {
     }; */
     /* demostratius aquest/este */
     if ($("input[name=demostratius]:checked").val() == "demostratius_aquest") {
-      enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
-      disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
+      //enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
+      //disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
     } else {
       enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
       disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
     };
     /* accentuació café /cafè */
     if ($("input[name=accentuacio]:checked").val() == "accentuacio_valenciana") {
-      enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
-      disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
+      //enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
+      //disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
     } else {
       enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
       disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
     };
+    /* concordança dos/dues */
+    if ($("input[name=concorda_dues]:checked").val() == "dos_dues") {
+      //enabledRules = enabledRules + ",CONCORDANCES_NUMERALS_DUES";
+      //disabledRules = disabledRules + ",CONCORDANCES_NUMERALS_DOS";
+    } else {
+      enabledRules = enabledRules + ",CONCORDANCES_NUMERALS_DOS";
+      disabledRules = disabledRules + ",CONCORDANCES_NUMERALS_DUES";
+    };
     /* municipis nom valencià/oficial */
     if ($("input[name=municipis]:checked").val() == "municipi_nom_valencia") {
-      enabledRules = enabledRules + ",MUNICIPIS_VALENCIA";
-      disabledRules = disabledRules + ",MUNICIPIS_OFICIAL";
+      //enabledRules = enabledRules + ",MUNICIPIS_VALENCIA";
+      //disabledRules = disabledRules + ",MUNICIPIS_OFICIAL";
     } else {
       enabledRules = enabledRules + ",MUNICIPIS_OFICIAL";
       disabledRules = disabledRules + ",MUNICIPIS_VALENCIA";
@@ -144,7 +152,7 @@ function doit() {
 
 
 function insertDemoText() {
-  var myDemoText = "Exigeix, exigix, exigesc, exigisc, aquest, este, café, cafè. Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans.";
+  var myDemoText = "Dues xiquetes, vint-i-dues xiquets, trenta-dos xiquetes, dos xiquets. Dos-centes xiquetes, dues-centes xiquets. Exigeix, exigix, exigesc, exigisc, aquest, este, café, cafè. Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans.";
   tinyMCE.activeEditor.setContent(myDemoText);
 }
 
@@ -174,7 +182,7 @@ function getCookie(cname) {
 
 function saveCookieStatus() {
   var regles_amb_radio = Array('incoatius', 'incoatius2', 'demostratius',
-    'accentuacio', 'municipis');
+    'accentuacio', 'concorda_dues', 'municipis');
   $.each(regles_amb_radio, function(index, nom) {
     var valor = $('[type="radio"][name="' + nom + '"]:checked').val();
     setCookie(nom, valor, 365);
@@ -184,7 +192,7 @@ function saveCookieStatus() {
 
 function readCookieStatus() {
   var regles_amb_radio = Array('incoatius', 'incoatius2', 'demostratius',
-    'accentuacio', 'municipis');
+    'accentuacio', 'concorda_dues', 'municipis');
   $.each(regles_amb_radio, function(index, nom) {
     var valor = getCookie(nom);
     if (valor !== undefined) {
