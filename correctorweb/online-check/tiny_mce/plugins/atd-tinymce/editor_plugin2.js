@@ -815,7 +815,7 @@ AtDCore.prototype.isIE = function() {
                 });
             }
 
-             if (suggestWord && suggestWordUrl && isSpellingRule) {
+             /*if (suggestWord && suggestWordUrl && isSpellingRule) {
                  var newUrl = suggestWordUrl.replace(/{word}/, encodeURIComponent(errorDescription['coveredtext']));
                  (function(url)
                  {
@@ -824,7 +824,7 @@ AtDCore.prototype.isIE = function() {
                          onclick : function() { window.open(newUrl, '_suggestWord'); }
                      });
                  })(errorDescription[suggestWord]);
-             }
+             }*/
 
              var langCode = $('#lang').val();
              var subLangCode = $('#subLang').val();
