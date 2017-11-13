@@ -102,54 +102,39 @@ function doit() {
       enabledRules = enabledRules + ",LEXIC_VAL,VERBS_I_ANTIHIATICA,EVITA_AQUEIX_EIXE,PREFERENCIES_VERBS_VALENCIANS,NUMERALS_VALENCIANS,PARTICIPIS_IT,ORDINALS_E,EXIGEIX_PLURALS_SCOS,EXIGEIX_PLURALS_JOS,EXIGEIX_PLURALS_S,EXIGEIX_INFINITIUS_INDRE,EXIGEIX_INFINITIUS_ALDRE";
       //disabledRules = disabledRules + "";
     } else {
+      /* incoatius -eix/-ix */
+      if ($("input[name=incoatius]:checked").val() == "incoatius_eix") {
 
-
+      } else {
+        enabledRules = enabledRules + ",EXIGEIX_VERBS_IX";
+        disabledRules = disabledRules + ",EXIGEIX_VERBS_EIX";
+      };
+      /* demostratius aquest/este */
+      if ($("input[name=demostratius]:checked").val() == "demostratius_aquest") {
+   
+      } else {
+        enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
+        disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
+      };
+      /* accentuació café /cafè */
+      if ($("input[name=accentuacio]:checked").val() == "accentuacio_valenciana") {
+ 
+      } else {
+        enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
+        disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
+      };
+      /* concordança dos/dues */
+      if ($("input[name=concorda_dues]:checked").val() == "dos_dues") {
+ 
+      } else {
+        enabledRules = enabledRules + ",CONCORDANCES_NUMERALS_DOS";
+        disabledRules = disabledRules + ",CONCORDANCES_NUMERALS_DUES";
+      };
     }
 
-    /* incoatius -eix/-ix */
-    if ($("input[name=incoatius]:checked").val() == "incoatius_eix") {
-      //enabledRules = enabledRules + ",EXIGEIX_VERBS_EIX";
-      //disabledRules = disabledRules + ",EXIGEIX_VERBS_IX";
-    } else {
-      enabledRules = enabledRules + ",EXIGEIX_VERBS_IX";
-      disabledRules = disabledRules + ",EXIGEIX_VERBS_EIX";
-    };
-    /* incoatius -isc/-esc 
-    if ($("input[name=incoatius2]:checked").val() == "incoatius_isc") {
-      enabledRules = enabledRules + ",EXIGEIX_VERBS_ISC";
-      disabledRules = disabledRules + ",EXIGEIX_VERBS_ESC";
-    } else {
-      enabledRules = enabledRules + ",EXIGEIX_VERBS_ESC";
-      disabledRules = disabledRules + ",EXIGEIX_VERBS_ISC";
-    }; */
-    /* demostratius aquest/este */
-    if ($("input[name=demostratius]:checked").val() == "demostratius_aquest") {
-      //enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
-      //disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
-    } else {
-      enabledRules = enabledRules + ",EVITA_DEMOSTRATIUS_AQUEST";
-      disabledRules = disabledRules + ",EVITA_DEMOSTRATIUS_ESTE";
-    };
-    /* accentuació café /cafè */
-    if ($("input[name=accentuacio]:checked").val() == "accentuacio_valenciana") {
-      //enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
-      //disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
-    } else {
-      enabledRules = enabledRules + ",EXIGEIX_ACCENTUACIO_GENERAL";
-      disabledRules = disabledRules + ",EXIGEIX_ACCENTUACIO_VALENCIANA";
-    };
-    /* concordança dos/dues */
-    if ($("input[name=concorda_dues]:checked").val() == "dos_dues") {
-      //enabledRules = enabledRules + ",CONCORDANCES_NUMERALS_DUES";
-      //disabledRules = disabledRules + ",CONCORDANCES_NUMERALS_DOS";
-    } else {
-      enabledRules = enabledRules + ",CONCORDANCES_NUMERALS_DOS";
-      disabledRules = disabledRules + ",CONCORDANCES_NUMERALS_DUES";
-    };
     /* municipis nom valencià/oficial */
     if ($("input[name=municipis]:checked").val() == "municipi_nom_valencia") {
-      //enabledRules = enabledRules + ",MUNICIPIS_VALENCIA";
-      //disabledRules = disabledRules + ",MUNICIPIS_OFICIAL";
+
     } else {
       enabledRules = enabledRules + ",MUNICIPIS_OFICIAL";
       disabledRules = disabledRules + ",MUNICIPIS_VALENCIA";
@@ -233,4 +218,27 @@ function readCookieStatus() {
     }
   });
 
+  update_enabled_rules();
+}
+
+function update_enabled_rules() {
+    if ($('input[name=criteris_gva]:checked').val()) {
+	document.getElementById("incoatius_eix").disabled = true;
+	document.getElementById("incoatius_ix").disabled = true;
+	document.getElementById("demostratius_aquest").disabled = true;
+	document.getElementById("demostratius_este").disabled = true;
+	document.getElementById("accentuacio_valenciana").disabled = true;
+	document.getElementById("accentuacio_general").disabled = true;
+	document.getElementById("concorda_dos_dues").disabled = true;
+	document.getElementById("concorda_dos").disabled = true;
+    } else {
+	document.getElementById("incoatius_eix").disabled = false;
+	document.getElementById("incoatius_ix").disabled = false;
+	document.getElementById("demostratius_aquest").disabled = false;
+	document.getElementById("demostratius_este").disabled = false;
+	document.getElementById("accentuacio_valenciana").disabled = false;
+	document.getElementById("accentuacio_general").disabled = false;
+	document.getElementById("concorda_dos_dues").disabled = false;
+	document.getElementById("concorda_dos").disabled = false;
+    }
 }

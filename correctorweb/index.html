@@ -35,12 +35,12 @@
             <strong>Opcions de correcció</strong>
             <table summary="opcions de correcció">
                 <tr>
-                    <td colspan="3"><input type="checkbox" name="criteris_gva" value="criteris_gva" checked> Criteris de l'Administració de la Generalitat</td>
+                    <td colspan="3"><input type="checkbox" onchange="update_enabled_rules();" name="criteris_gva" value="criteris_gva" checked> Criteris de l'Administració de la Generalitat</td>
                 </tr>
                 <tr>
                     <td>Verbs incoatius:</td>
-                    <td><input type="radio" name="incoatius" value="incoatius_eix" checked>-eix (serveix)</td>
-                    <td><input type="radio" name="incoatius" value="incoatius_ix">-ix (servix)</td>
+                    <td><input type="radio" name="incoatius" id="incoatius_eix" value="incoatius_eix" checked>-eix (serveix)</td>
+                    <td><input type="radio" name="incoatius" id="incoatius_ix" value="incoatius_ix">-ix (servix)</td>
                 </tr>
                 <!--<tr>
                     <td></td>
@@ -50,18 +50,18 @@
                 </tr>-->
                 <tr>
                     <td>Demostratius:</td>
-                    <td><input type="radio" name="demostratius" value="demostratius_aquest" checked>aquest</td>
-                    <td><input type="radio" name="demostratius" value="demostratius_este">este</td>
+                    <td><input type="radio" name="demostratius" id="demostratius_aquest" value="demostratius_aquest" checked>aquest</td>
+                    <td><input type="radio" name="demostratius" id="demostratius_este" value="demostratius_este">este</td>
                 </tr>
                 <tr>
                     <td>Accentuació:</td>
-                    <td><input type="radio" name="accentuacio" value="accentuacio_valenciana" checked>café</td>
-                    <td><input type="radio" name="accentuacio" value="accentuacio_general">cafè</td>  
+                    <td><input type="radio" name="accentuacio" id="accentuacio_valenciana" value="accentuacio_valenciana" checked>café</td>
+                    <td><input type="radio" name="accentuacio" id="accentuacio_general" value="accentuacio_general">cafè</td>  
                 </tr>
                 <tr>
                     <td>Concordança:</td>
-                    <td><input type="radio" name="concorda_dues" value="dos_dues" checked>dos/dues</td>
-                    <td><input type="radio" name="concorda_dues" value="dos">dos</td>  
+                    <td><input type="radio" name="concorda_dues" id="concorda_dos_dues" value="dos_dues" checked>dos/dues</td>
+                    <td><input type="radio" name="concorda_dues" id="concorda_dos" value="dos">dos</td>  
                 </tr>
                 <tr>
                     <td>Municipis valencians:</td>
