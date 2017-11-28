@@ -95,14 +95,16 @@ function doit() {
     }
     //select rules 
     //common rules
-    var disabledRules = "WHITESPACE_RULE,PERCENT_SENSE_ESPAI,AL_INFINITIU,EVITA_INFINITIUS_INDRE,ORTO_IEC2017";
+    var disabledRules = "WHITESPACE_RULE,PERCENT_SENSE_ESPAI,AL_INFINITIU,EVITA_INFINITIUS_INDRE,ORTO_IEC2017,CA_SIMPLE_REPLACE_DNV";
     var enabledRules = "PRE_IEC2017";
-    var disabledCategories = "ACCEPTED_BY_AVL";
+    var disabledCategories = "DNV_PRIMARY_FORM";
 
     if ($('input[name=criteris_gva]:checked').val()) {
       enabledRules = enabledRules + ",LEXIC_VAL,VERBS_I_ANTIHIATICA,EVITA_AQUEIX_EIXE,PREFERENCIES_VERBS_VALENCIANS,NUMERALS_VALENCIANS,PARTICIPIS_IT,ORDINALS_E,EXIGEIX_PLURALS_SCOS,EXIGEIX_PLURALS_JOS,EXIGEIX_PLURALS_S,EXIGEIX_INFINITIUS_INDRE,EXIGEIX_INFINITIUS_ALDRE,EXIGEIX_US";
       //disabledRules = disabledRules + "";
     } else {
+      disabledRules = disabledRules + ",VULLGA,AHI"; //acceptat per AVL no Generalitat
+
       /* incoatius -eix/-ix */
       if ($("input[name=incoatius]:checked").val() == "incoatius_eix") {
 
