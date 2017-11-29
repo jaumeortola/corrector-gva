@@ -26,8 +26,8 @@ tinyMCE.init({
   },
   languagetool_i18n_ignore_once: {
     // "Ignore this error":
-    'ca': 'Crec que no és un error',
-    'ca-ES-valencia': 'Crec que no és un error'
+    'ca': 'Ignora aquest error',
+    'ca-ES-valencia': 'Ignora aquest error'
   },
   languagetool_i18n_ignore_all: {
     // "Ignore this kind of error":
@@ -143,6 +143,11 @@ function doit() {
       disabledRules = disabledRules + ",MUNICIPIS_VALENCIA";
     };
 
+    // paraules preferents
+    if ($("input[name=recomana_preferents]:checked").val() === false) {
+      var disabledCategories = disabledCategories + ",DNV_SECONDARY_FORM";
+    };
+
     var userOptions = "disabledRules=" + disabledRules + "&enabledRules=" + enabledRules + "&disabledCategories=" + disabledCategories;
     tinyMCE.activeEditor.execCommand("mceWritingImprovementTool", langCode, userOptions);
   }
@@ -186,7 +191,7 @@ function saveCookieStatus() {
     setCookie(nom, valor, 365);
   });
 
-  var regles_amb_checkbox = Array('criteris_gva');
+  var regles_amb_checkbox = Array('criteris_gva','recomana_preferents');
   $.each(regles_amb_checkbox, function(index, nom) {
     var valor = $('input[name=' + nom + ']:checked').val();
     if (valor) {
@@ -209,7 +214,7 @@ function readCookieStatus() {
     }
   });
 
-  var regles_amb_checkbox = Array('criteris_gva');
+  var regles_amb_checkbox = Array('criteris_gva','recomana_preferents');
   $.each(regles_amb_checkbox, function(index, nom) {
     var valor = getCookie(nom);
     if (valor !== undefined) {
