@@ -64,6 +64,12 @@ AtDCore.prototype.processJSON = function(responseJSON) {
         var suggestion = {};
         // I didn't manage to make the CSS break the text, so we add breaks with Javascript:
         suggestion["description"] = this._wordwrap(match.message, 50, "<br/>");
+        if (match.rule.category.id === 'DNV_SECONDARY_FORM') {
+            suggestion["description"] = "Forma secundària.";
+        }
+        if (match.rule.category.id === 'DNV_COLLOQUIAL') {
+            suggestion["description"] = "Paraula o expressió col·loquial.";
+        }
         suggestion["suggestions"] = [];
         var suggestions = [];
         for (var k = 0; k < match.replacements.length; k++) {

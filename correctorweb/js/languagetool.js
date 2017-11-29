@@ -144,8 +144,12 @@ function doit() {
     };
 
     // paraules preferents
-    if ($("input[name=recomana_preferents]:checked").val() === false) {
-      var disabledCategories = disabledCategories + ",DNV_SECONDARY_FORM";
+    if (! $("input[name=recomana_preferents]:checked").val()) {
+      disabledCategories = disabledCategories + ",DNV_SECONDARY_FORM";
+    };
+    // paraules col·loquials
+    if (! $("input[name=evita_colloquials]:checked").val()) {
+      disabledCategories = disabledCategories + ",DNV_COLLOQUIAL";
     };
 
     var userOptions = "disabledRules=" + disabledRules + "&enabledRules=" + enabledRules + "&disabledCategories=" + disabledCategories;
@@ -155,7 +159,7 @@ function doit() {
 
 
 function insertDemoText() {
-  var myDemoText = "Exigeix, exigix, exigesc, exigisc, aquest, este, café, cafè. Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans. Dues xiquetes, vint-i-dues xiquets, trenta-dos xiquetes, dos xiquets. Dos-centes xiquetes, dues-centes xiquets. Aqueixa qüestió o eixa qüestió.";
+  var myDemoText = "Tamany, escomençar, mos agrada. Ahí quan vullga a mida que arribi mentres passa. Tenir agulletes. Exigeix, exigix, exigesc, exigisc, aquest, este, café, cafè. Aqueixa és la questió avui. Vuitanta-vuit, cinquanta-vuité. Oriola. Énguera. Orihuela, Enguera. Castelló de la Ribera, Vilanova de Castelló, Villanueva de Castellón. Veent lo que havia passat, llençaren un atac, i el cargol arrencà a córrer. Uns bons nedadors. Treure, abstraent, retrec, m'ajec. Mare de Déu dels Dolors i Ajuntament de Dolors. Els desigs, els tests, anàssem. Mantenir o mantindre. Segons allò indicat en el Dcret llei, hi han bastantes qüestions pendent. Vint-i-tresè, quuan ho sapigueu. Dos amic i dos amigues. Dona'm el llapis. Es el millor. Infligiren la llei. Creem que si creem una solució. Servix per tal de guisar. Que servesquen per guisar. Cal erradicar-lo i eradicar-la, com a coresponsable i corresponsable. Cal vetllar pel futur, però no desvetlar els plans. Dues xiquetes, vint-i-dues xiquets, trenta-dos xiquetes, dos xiquets. Dos-centes xiquetes, dues-centes xiquets. Aqueixa qüestió o eixa qüestió.";
   tinyMCE.activeEditor.setContent(myDemoText);
 }
 
@@ -191,7 +195,8 @@ function saveCookieStatus() {
     setCookie(nom, valor, 365);
   });
 
-  var regles_amb_checkbox = Array('criteris_gva','recomana_preferents');
+  var regles_amb_checkbox = Array('criteris_gva','recomana_preferents',
+    'evita_colloquials');
   $.each(regles_amb_checkbox, function(index, nom) {
     var valor = $('input[name=' + nom + ']:checked').val();
     if (valor) {
@@ -214,7 +219,8 @@ function readCookieStatus() {
     }
   });
 
-  var regles_amb_checkbox = Array('criteris_gva','recomana_preferents');
+  var regles_amb_checkbox = Array('criteris_gva','recomana_preferents',
+    'evita_colloquials');
   $.each(regles_amb_checkbox, function(index, nom) {
     var valor = getCookie(nom);
     if (valor !== undefined) {
