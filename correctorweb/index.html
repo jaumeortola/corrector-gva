@@ -18,16 +18,14 @@
 <body>
      
     <!--formulari-->
-    <!-- envia a una pàgina d'error si el JavaScript falla http://www.pagina-de-error.gva.es
-    (no hauria de passar)-->
-    <form name="checkform" action="http://www.pagina-de-error.gva.es" method="post"> 
+    <form name="checkform" action="" method="post"> 
         <p id="checktextpara">
             <textarea id="checktext" name="text" style="width: 100%" rows="20"></textarea>
         </p>
         <div>
             <input type="hidden" name="lang" value="ca-ES-valencia"/>     
             <input type="submit" name="_action_checkText" value="Revisa" onClick="doit();return false;">
-              <div id="feedbackErrorMessage" style="color: red;"></div>
+              <div id="feedbackErrorMessage" style="color: red;"><noscript>JavaScript està desactivat. El corrector no funcionarà.</noscript></div>
               <br/><a class="textpetit" href="javascript:void(0)" onclick="javascript:insertDemoText();">Insereix un text de prova</a>
         </div>
         <!--Opcions-->
