@@ -62,7 +62,7 @@ tinyMCE.init({
      If you use your own server here and it's not running on the same domain 
      as the text form, make sure the server gets started with '--allow-origin ...' 
      and use 'https://your-server/v2/check' as URL: */
-  languagetool_rpc_url: "http://riuraueditors.cat/lt-api/v2/check",
+  languagetool_rpc_url: "https://riuraueditors.cat/lt-api/v2/check",
   /* edit this file to customize how LanguageTool shows errors: */
   languagetool_css_url: "online-check/tiny_mce/plugins/atd-tinymce/css/content.css",
   /* this stuff is a matter of preference: */
@@ -95,9 +95,14 @@ function doit() {
     }
     //select rules 
     //common rules
-    var disabledRules = "WHITESPACE_RULE,PERCENT_SENSE_ESPAI,AL_INFINITIU,EVITA_INFINITIUS_INDRE,ORTO_IEC2017,CA_SIMPLE_REPLACE_DNV";
-    var enabledRules = "PRE_IEC2017";
+    var disabledRules = "WHITESPACE_RULE,PERCENT_SENSE_ESPAI,AL_INFINITIU,EVITA_INFINITIUS_INDRE,CA_SIMPLE_REPLACE_DNV";
+    var enabledRules = "";
     var disabledCategories = "DNV_PRIMARY_FORM";
+
+    if ($("input[name=diacritics]:checked").val() == "diacritics_iec") {
+       disabledCategories = disabledCategories + ",DIACRITICS_TRADITIONAL"; 
+       enabledRules = enabledRules + ",CA_SIMPLEREPLACE_DIACRITICS_IEC"; 
+    }
 
     if ($('input[name=criteris_gva]:checked').val()) {
       enabledRules = enabledRules + ",LEXIC_VAL,VERBS_I_ANTIHIATICA,EVITA_AQUEIX_EIXE,PREFERENCIES_VERBS_VALENCIANS,NUMERALS_VALENCIANS,PARTICIPIS_IT,ORDINALS_E,EXIGEIX_PLURALS_SCOS,EXIGEIX_PLURALS_JOS,EXIGEIX_PLURALS_S,EXIGEIX_INFINITIUS_INDRE,EXIGEIX_INFINITIUS_ALDRE,EXIGEIX_US";
@@ -166,8 +171,12 @@ function doit() {
 
 
 function insertDemoText() {
-  var myDemoText = "Aquestes frase de proba servixen per mostrar alguns de les errades que detcta i els recomanacions que fa el correctors. Accents: es gran, son bonics, una conferencia. Apostrofacions: la organització, l'inferència, d'Hollywood. Paraules segons el context: va infringir un càstig; el rei accedí al tro. Criteris lingüístics de l'Administració de la Generalitat: treure o traure, tenir o tindre, cinquè o cinqué, anàssem o anàrem, dos finestres o dues finestres, serveixen o servixen, aquest o este home. Confusions habituals: l'estandard europeu, l'assembla general. Formes secundàries: triumfalista, queradilla. Formes col·loquials: mos agrada fer-ho aixina. Noms de municipis: Orihuela o Oriola, Aiora o Ayora.";
+  var myDemoText = "Aquestes frase de proba servixen per mostrar alguns de les errades que detcta i els recomanacions que fa el correctors. Accents: es gran, son bonics, una conferencia. Apostrofacions: la organització, l'inferència, d'Hollywood. Paraules segons el context: va infringir un càstig; el rei accedí al tro. Criteris lingüístics de l'Administració de la Generalitat: treure o traure, tenir o tindre, cinquè o cinqué, anàssem o anàrem, dos finestres o dues finestres, serveixen o servixen, aquest o este home. Confusions habituals: l'estandard europeu, l'assembla general. Formes secundàries: triumfalista, queradilla. Formes col·loquials: mos agrada fer-ho aixina. Noms de municipis: Orihuela o Oriola, Aiora o Ayora. Dona-li les gràcies. Dóna-li les gràcies.";
   tinyMCE.activeEditor.setContent(myDemoText);
+}
+
+function removeText() {
+  tinyMCE.activeEditor.setContent("");
 }
 
 // COOKIE
@@ -196,7 +205,7 @@ function getCookie(cname) {
 
 function saveCookieStatus() {
   var regles_amb_radio = Array('incoatius', 'incoatius2', 'demostratius',
-    'accentuacio', 'concorda_dues', 'municipis');
+    'accentuacio', 'concorda_dues', 'municipis', 'diacritics');
   $.each(regles_amb_radio, function(index, nom) {
     var valor = $('[type="radio"][name="' + nom + '"]:checked').val();
     setCookie(nom, valor, 365);
@@ -217,7 +226,7 @@ function saveCookieStatus() {
 
 function readCookieStatus() {
   var regles_amb_radio = Array('incoatius', 'incoatius2', 'demostratius',
-    'accentuacio', 'concorda_dues', 'municipis');
+    'accentuacio', 'concorda_dues', 'municipis', 'diacritics');
   $.each(regles_amb_radio, function(index, nom) {
     var valor = getCookie(nom);
     if (valor !== undefined) {
